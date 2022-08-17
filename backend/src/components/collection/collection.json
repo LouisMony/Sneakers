@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_collection_collections",
+  "info": {
+    "displayName": "Collection",
+    "icon": "book-open"
+  },
+  "options": {},
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "Price": {
+      "type": "integer"
+    },
+    "Image": {
+      "type": "string"
+    }
+  }
+}

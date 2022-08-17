@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "collections",
+  "info": {
+    "singularName": "collection",
+    "pluralName": "collections",
+    "displayName": "Collection",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "Image": {
+      "type": "string"
+    },
+    "Proprietaire": {
+      "type": "string"
+    },
+    "Price": {
+      "type": "biginteger"
+    },
+    "Vente": {
+      "type": "boolean",
+      "default": false
+    },
+    "Prop_id": {
+      "type": "integer"
+    },
+    "Rarete": {
+      "type": "string"
+    }
+  }
+}

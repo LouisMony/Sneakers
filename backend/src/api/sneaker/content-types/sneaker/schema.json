@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sneakers",
+  "info": {
+    "singularName": "sneaker",
+    "pluralName": "sneakers",
+    "displayName": "Sneaker",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "Image": {
+      "type": "string"
+    },
+    "Price": {
+      "type": "biginteger"
+    },
+    "Rarete": {
+      "type": "string"
+    }
+  }
+}
