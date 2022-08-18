@@ -8,11 +8,11 @@
                 </router-link>
             </li>
             <li><router-link class="redirect" to="/my-profil"><img src="@/assets/img/ico/ico_collection.png" alt="Collection">Collection</router-link></li>
-            <li><router-link class="redirect" to="/bourse"><img src="@/assets/img/ico/ico_bourse.png" alt="Bourse">Bourse</router-link></li>
             <li><router-link class="redirect" to="/opener"><img src="@/assets/img/ico/ico_shop.png" alt="Shop">Box</router-link></li>
-            <li><router-link class="redirect" to="/players"><img src="@/assets/img/ico/ico_players.png" alt="Shop">Joueurs</router-link></li>
             <li><router-link class="redirect" to="/echange"><img src="@/assets/img/ico/ico_echange.png" alt="Echange">Echanges</router-link></li>
-
+            <li><router-link class="redirect" to="/bourse"><img src="@/assets/img/ico/ico_bourse.png" alt="Bourse">Bourse</router-link></li>
+            <li><router-link class="redirect" to="/catalogue"><img src="@/assets/img/ico/ico_catalogue.png" alt="Catalogue">Catalogue</router-link></li>
+            <li><router-link class="redirect" to="/players"><img src="@/assets/img/ico/ico_players.png" alt="Shop">Joueurs</router-link></li>
         </ul>
         <span v-on:click="disconnect" class="disconnect">Me deconnecter</span>
     </div>
@@ -59,7 +59,7 @@ ul{
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 40px;
 
   .profil_li{
     text-decoration: none;

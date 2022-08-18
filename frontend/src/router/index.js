@@ -10,6 +10,7 @@ import ResultView from '../views/ResultView.vue'
 import PlayersView from '../views/PlayersView.vue'
 import PlayersDetailsView from '../views/PlayerDetailsView.vue'
 import EchangeView from '../views/EchangeView.vue'
+import CatalogueView from '../views/CatalogueView.vue'
 
 Vue.use(VueRouter)
 
@@ -112,6 +113,18 @@ const routes = [
       }
     },
     component: BourseView
+  },
+  {
+    path: '/catalogue',
+    name: 'catalogue',
+    beforeEnter: (to, from, next) => {
+      if(window.localStorage.getItem('token') !== null){
+        next()
+      }else{
+        router.push('/login')
+      }
+    },
+    component: CatalogueView
   },
   {
     path: '/about',

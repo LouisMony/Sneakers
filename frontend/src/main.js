@@ -8,6 +8,74 @@ Vue.config.productionTip = false
 
 Vue.mixin({
   methods: {
+    async clearItem(id){
+      console.log('start', id);
+      //CLEAR VENTE STATE
+      await http.put('collections/'+id+'', 
+      {
+          "data":{
+              Vente: false,
+          }
+      },
+      {
+          headers: {
+              Authorization:
+              'Bearer '+localStorage.getItem('token')+'',
+          },
+      })
+      .then(function (res) {
+        console.log(res.data);
+      })
+      //CLEAR ECHANGES
+      var idArr = []
+      await http.get('echanges/?filters[chaussure_a_id][$eq]='+id+'',{
+          headers: {
+              Authorization:
+              'Bearer '+localStorage.getItem('token')+'',
+          },
+      })
+      .then(function (res) {
+         console.log(res.data);
+         res.data.data.forEach(item => {
+            idArr.push(item.id)
+         });
+         console.log(idArr);
+         idArr.forEach(item =>{
+            http.delete('echanges/'+item+'',{
+              headers: {
+                  Authorization:
+                  'Bearer '+localStorage.getItem('token')+'',
+              },
+            }).then(function (res) {
+              console.log(res.data);
+            })
+         })
+      })
+      await http.get('echanges/?filters[chaussure_b_id][$eq]='+id+'',{
+        headers: {
+            Authorization:
+            'Bearer '+localStorage.getItem('token')+'',
+        },
+      })
+      .then(function (res) {
+        console.log(res.data);
+        res.data.data.forEach(item => {
+            idArr.push(item.id)
+        });
+        console.log(idArr);
+        idArr.forEach(item =>{
+            http.delete('echanges/'+item+'',{
+              headers: {
+                  Authorization:
+                  'Bearer '+localStorage.getItem('token')+'',
+              },
+            }).then(function (res) {
+              console.log(res.data);
+            })
+        })
+      })
+    },
+
     async Transaction(price, destinataire_id) {
       price = parseInt(price)
 

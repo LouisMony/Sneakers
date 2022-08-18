@@ -10,7 +10,7 @@
                     <td><img src="https://picsum.photos/id/684/40/40" alt=""></td>
                     <td class="td_username">{{rang.username}}</td>
                     <td>{{rang.credits}}</td>
-                    <td><router-link :to="{ name: 'player', params: {username: rang.username } }">Voir la collection</router-link></td>
+                    <td v-if="rang.username !== username"><router-link :to="{ name: 'player', params: {username: rang.username } }">Voir la collection</router-link></td>
                 </tr>
             </tbody>
         </table>
@@ -27,7 +27,8 @@ export default {
     data(){
         return{
             searchvalue: '',
-            users:[]
+            users:[],
+            username: localStorage.getItem('username')
         }
     },
     watch: {

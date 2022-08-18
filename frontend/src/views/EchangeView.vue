@@ -15,7 +15,7 @@
                 <span>{{rang.chaussure_b_prop}}</span> 
             </div>
             <div>
-                <button class="button" v-on:click="acceptOffre(rang.id, rang.chaussure_a_id, rang.chaussure_a_prop, rang.chaussure_b_id, rang.chaussure_b_prop )">Accepter l'offre</button>
+                <button class="button" v-on:click="acceptOffre(rang.id, rang.chaussure_a_id, rang.chaussure_a_prop, rang.chaussure_b_id, rang.chaussure_b_prop ); clearItem(rang.chaussure_a_id); clearItem(rang.chaussure_b_id)">Accepter l'offre</button>
                 <button class="button__off" v-on:click="deleteOffre(rang.id)">Refuser l'offre</button>
             </div>
         </div>
@@ -31,7 +31,7 @@
                 <span>Toi</span> 
             </div>
             <div>
-                <button class="button__off" v-on:click="deleteOffre(rang.id)">Annulter l'offre</button>
+                <button class="button__off" v-on:click="deleteOffre(rang.id);">Annulter l'offre</button>
             </div>
         </div>
     </div>

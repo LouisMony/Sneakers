@@ -9,7 +9,7 @@
                 <img :src="'https://'+rang.Image">
                 <h2>{{rang.Name}}</h2>
                 <span class="span_prix"> Prix: {{rang.Price}} $</span>
-                <button class="button" v-if="rang.Proprietaire_name !== current_username" v-on:click="Achat(rang.ID, rang.Vente); Transaction(rang.Price, rang.Proprietaire)">Acheter</button>
+                <button class="button" v-if="rang.Proprietaire_name !== current_username" v-on:click="Achat(rang.ID, rang.Vente); Transaction(rang.Price, rang.Proprietaire); clearItem(rang.ID)">Acheter</button>
                 <button class="button__off" v-else>Votre vente</button>
 
             </div>
