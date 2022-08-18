@@ -18,7 +18,7 @@
                 <h2>{{rang.name}}</h2>
                 <span class="span_prix">Estimation: {{rang.price}} $</span>
                 <span class="span_rarete">Rareté : {{rang.rarete}}</span>
-                <button v-if="!rang.collec" v-on:click="Transaction(rang.price*10, null)" class="button">Acheter - {{rang.price*10}}$</button>
+                <button v-if="!rang.collec" v-on:click="Transaction(rang.price*10, null); Achat(rang.name, rang.rarete, rang.price, rang.image)" class="button">Acheter - {{rang.price*10}}$</button>
                 <button v-else class="button__off">Obtenu</button>
             </div>
         </div>
@@ -45,11 +45,40 @@ export default {
     },   
     
     methods:{
+        async Achat(name, rarete, prix, img){
+            var _this = this
+            var username = localStorage.getItem('username')
+            var id = localStorage.getItem('id')
+            await http.post('collections', 
+            {
+                "data":{
+                    Proprietaire: username,
+                    Prop_id: id,
+                    Name: name,
+                    Rarete: rarete,
+                    Price: prix,
+                    Image: img
+                }
+            },
+            {
+                headers: {
+                    Authorization:
+                    'Bearer '+localStorage.getItem('token')+'',
+                },
+            })
+            .then(function (res) {
+                console.log(res)
+                _this.getCatalogue(_this.pagevalue)
+                
+            })
+        },
+
         async getCatalogue(pagenumber){
             console.log('tets');
             this.pagevalue = pagenumber
             this.catalogue = []
             var _this = this
+
             await http.get('sneakers?pagination[pageSize]=24&&pagination[page]='+pagenumber+'', {
                 headers: {
                     Authorization:
@@ -60,7 +89,7 @@ export default {
                 console.log(res);
                 res.data.data.forEach( item => {
                     var collec = false
-                    http.get('collections?filters[Proprietaire][$eq]='+localStorage.getItem('username')+'&filters[Name][$eq]='+item.attributes.Name+'', {
+                    http.get('collections?filters[Proprietaire][$eq]='+localStorage.getItem('username')+'&filters[Image][$eq]='+item.attributes.Image+'', {
                         headers: {
                             Authorization:
                             'Bearer '+localStorage.getItem('token')+'',
@@ -80,13 +109,8 @@ export default {
                             price : item.attributes.Price,
                             image : item.attributes.Image,
                         })
-                        _this.catalogue.sort(function (a, b) {
-                            return b.price - a.price;
-                        });
                     })
                 })
-                
-                
             })
         }, 
     }
