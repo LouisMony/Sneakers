@@ -2,7 +2,7 @@
     <div class="modal">
         <div class="modal_main">
             <img src="@/assets/img/ico/ico_close.png" class="close" v-on:click="close()" alt="close">
-            <h2>Choisir un modèle à échanger</h2>
+            <h2>Choisis un modèle à échanger</h2>
             <div class="ligne" v-for="rang in chaussure" :key="rang" v-on:click="submitEchange(rang.Image, rang.Id)">
                 <img :src="'https://'+rang.Image">
                 <span>{{rang.Name}}</span>

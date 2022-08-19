@@ -7,9 +7,9 @@
                     <span><span class="username">{{username}}</span><br/>{{credits}} $</span>
                 </router-link>
             </li>
-            <li><router-link class="redirect" to="/my-profil"><img src="@/assets/img/ico/ico_collection.png" alt="Collection">Collection</router-link></li>
+            <li><router-link class="redirect" to="/my-profil"><img src="@/assets/img/ico/ico_collection.png" alt="Collection">Ma collection</router-link></li>
             <li><router-link class="redirect" to="/opener"><img src="@/assets/img/ico/ico_shop.png" alt="Shop">Box</router-link></li>
-            <li><router-link class="redirect" to="/echange"><img src="@/assets/img/ico/ico_echange.png" alt="Echange">Echanges</router-link></li>
+            <li><router-link class="redirect" to="/echange"><img src="@/assets/img/ico/ico_echange.png" alt="Echange">Mes échanges</router-link></li>
             <li><router-link class="redirect" to="/bourse"><img src="@/assets/img/ico/ico_bourse.png" alt="Bourse">Bourse</router-link></li>
             <li><router-link class="redirect" to="/catalogue"><img src="@/assets/img/ico/ico_catalogue.png" alt="Catalogue">Catalogue</router-link></li>
             <li><router-link class="redirect" to="/players"><img src="@/assets/img/ico/ico_players.png" alt="Shop">Joueurs</router-link></li>

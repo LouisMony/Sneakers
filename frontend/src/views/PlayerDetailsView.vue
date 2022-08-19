@@ -17,7 +17,8 @@
         </div>
         <div class="display_card" >
             <div class="card" v-for="rang in chaussure" :key="rang">
-                <span class="echange" :data-id="rang.id" :data-img="rang.Image" :data-prop="username" v-on:click="saveTarget"><img src="@/assets/img/ico/ico_echange.png" alt="icone echange"></span>
+                <span v-if="rang.Echange" class="echange" :data-id="rang.id" :data-img="rang.Image" :data-prop="username" v-on:click="saveTarget"><img src="@/assets/img/ico/ico_echange.png" alt="icone echange"></span>
+                <span v-else class="echange__off">Indisponible à l'échange</span>
                 <img :src="'https://'+rang.Image">
                 <h2>{{rang.Name}}</h2>
                 <span class="span_prix">Estimation: {{rang.Price}} $</span>
@@ -104,7 +105,8 @@ export default {
                     var prix = item.attributes.Price;
                     var rarity = item.attributes.Rarete
                     var vente = item.attributes.Vente
-                    userChaussure.push({id: id, Name: name, Image : image, Price: prix, Vente: vente, ID: item.id, Rarete: rarity}) 
+                    var echange = item.attributes.dispo_echange
+                    userChaussure.push({id: id, Name: name, Image : image, Price: prix, Vente: vente, ID: item.id, Rarete: rarity, Echange: echange}) 
                 })
             })
             this.collection_size = userChaussure.length
@@ -215,6 +217,16 @@ export default {
 
                 &:hover{
                     background: #2c2c2c;
+                }
+
+                &__off{
+                    font-size: 12px; 
+                    position: absolute;
+                    top: 15px;
+                    left: 15px;
+                    font-style: italic;
+                    color: #c7c7c78c;
+
                 }
             }
 

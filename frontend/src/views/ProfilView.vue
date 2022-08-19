@@ -24,6 +24,9 @@
                     <span class="span_rarete">Rareté : {{rang.Rarete}}</span>
                     <button class="button" v-on:click="ToggleState(rang.ID, rang.Vente)" v-if="rang.Vente === false">Vendre</button>
                     <button class="button__off" v-on:click="ToggleState(rang.ID, rang.Vente)" v-else>Stopper la vente</button>
+
+                    <button class="button__third" v-on:click="ToggleEchange(rang.ID, rang.Echange)" v-if="rang.Echange === true">Echanges autorisés ✔️</button>
+                    <button class="button__off" v-on:click="ToggleEchange(rang.ID, rang.Echange)" v-else>Echanges non autorisés ❌</button>
                 </div>
             </div>
         </div>
@@ -102,6 +105,25 @@ export default {
             })
             this.getCollection()
         },
+        async ToggleEchange(id, state){
+            var new_state = true
+            if(state === true){new_state = false}
+
+            console.log(id, state);
+            await http.put('collections/'+id+'', 
+            {
+                "data":{
+                    dispo_echange: new_state,
+                }
+            },
+            {
+                headers: {
+                    Authorization:
+                    'Bearer '+localStorage.getItem('token')+'',
+                },
+            })
+            this.getCollection()
+        },
 
         async getCollection(){
             var userChaussure = []
@@ -117,9 +139,9 @@ export default {
                     var image = item.attributes.Image;
                     var prix = item.attributes.Price;
                     var rarity = item.attributes.Rarete
-                    console.log(rarity);
+                    var echange = item.attributes.dispo_echange
                     var vente = item.attributes.Vente
-                    userChaussure.push({Name: name, Image : image, Price: prix, Vente: vente, ID: item.id, Rarete: rarity}) 
+                    userChaussure.push({Name: name, Image : image, Price: prix, Vente: vente, ID: item.id, Rarete: rarity, Echange: echange}) 
                 })
             })
             this.collection_size = userChaussure.length
@@ -231,6 +253,14 @@ export default {
             }
             .span_rarete{
                 margin-bottom: 25px;
+            }
+
+            .button__off{
+                background: transparent;
+                &:hover{
+                    background: #1E1E1E;;
+                    filter: none;
+                }
             }
         }
     }

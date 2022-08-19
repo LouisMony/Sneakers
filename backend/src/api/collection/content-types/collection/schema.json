@@ -33,6 +33,10 @@
     },
     "Rarete": {
       "type": "string"
+    },
+    "dispo_echange": {
+      "type": "boolean",
+      "default": true
     }
   }
 }

@@ -15,6 +15,7 @@ Vue.mixin({
       {
           "data":{
               Vente: false,
+              dispo_echange: false
           }
       },
       {

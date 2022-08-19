@@ -53,6 +53,23 @@ export default {
       filter: brightness(80%);
     }
   }
+
+  &__third{
+    transition: all 200ms linear;
+    cursor: pointer;
+    background: transparent;
+    border: 1px solid #F05E2F;
+    color: #C7C7C7;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 21px;
+    padding: 10px;
+    border-radius: 20px;
+    width: 90%;
+    &:hover{
+      background: #1E1E1E;
+    }
+  }
   &:hover{
     filter: brightness(80%);
   }

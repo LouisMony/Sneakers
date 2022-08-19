@@ -2,14 +2,7 @@
     <div>
         <div class="profil_top">
             <h1>Catalogue</h1>
-        </div>
-        <div>
-            <span>Page : </span>
-            <button v-if="pagevalue>1" v-on:click="getCatalogue(pagevalue -1)">Previous</button>
-            <span>{{pagevalue}}</span>
-            <button v-if="pagevalue<77" v-on:click="getCatalogue(pagevalue + 1)">Next</button>
-            <input type="number" v-model="pagevalue">
-            <button v-on:click="getCatalogue(pagevalue)">Valider</button>
+            <input type="text" placeholder="Rechercher un modèle ..."  v-model="searchvalue">
         </div>
 
         <div class="display_card" >
@@ -21,6 +14,20 @@
                 <button v-if="!rang.collec" v-on:click="Transaction(rang.price*10, null); Achat(rang.name, rang.rarete, rang.price, rang.image)" class="button">Acheter - {{rang.price*10}}$</button>
                 <button v-else class="button__off">Obtenu</button>
             </div>
+        </div>
+
+        <div class="pagination">
+            <span>Page : </span>
+            
+            <span class="icon active" v-if="pagevalue>1" v-on:click="getCatalogue(pagevalue -1)"><img src="@/assets/img/ico/ico_previous.png" alt="Previous"></span>
+            <span class="icon" v-else ><img src="@/assets/img/ico/ico_previous.png" alt="Previous"></span>
+
+            <span style="font-weight:bold">{{pagevalue}}</span>
+            <span class="icon active" v-if="pagevalue<77" v-on:click="getCatalogue(pagevalue + 1)"><img src="@/assets/img/ico/ico_next.png" alt="Previous"></span>
+            <span class="icon" v-else><img src="@/assets/img/ico/ico_next.png" alt="Next"></span>
+
+            <input type="number" max="77" min="1" v-model="pagevalue">
+            <button class='go' v-on:click="getCatalogue(pagevalue)">Valider</button>
         </div>
     </div>
 </template>
@@ -37,6 +44,29 @@ export default {
           catalogue:[],
           collection:[],
           pagevalue: 1,
+          searchvalue:''
+        }
+    },
+    watch: {
+        searchvalue: function(val, oldVal) {
+            const cards = document.querySelectorAll('.card')
+            const cardsArr = Array.from(cards);
+            if(val !== ''){
+                val = val.toLowerCase()
+                cardsArr.forEach(item => {
+                    var name =item.querySelector('h2').textContent.toLowerCase();
+                    if(name.includes(val)){
+                        item.style.display = "flex"
+                    }
+                    else{
+                        item.style.display = "none"
+                    }
+                })
+            }else{
+                cardsArr.forEach(item => {
+                    item.style.display = "flex"
+                })
+            }
         }
     },
 
@@ -75,6 +105,7 @@ export default {
 
         async getCatalogue(pagenumber){
             console.log('tets');
+            pagenumber = parseInt(pagenumber)
             this.pagevalue = pagenumber
             this.catalogue = []
             var _this = this
@@ -118,6 +149,63 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.pagination{
+    width: fit-content;
+    margin: 30px auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .icon{
+        display: flex;
+        align-items: center;
+        img{
+            height: 20px;
+            opacity: 0.25;
+        }
+    }
+
+    .active{
+        cursor: pointer;
+        img{
+            opacity: 1;
+        }
+    }
+    input, .go{
+        width: 30px;
+        height: 30px;
+        background: transparent;
+        border: solid 1px #c4c4c48f;
+        outline: none;
+        color: white;
+        font-family: 'Poppins';
+        text-align: center;
+        border-radius: 5px;
+        padding: 0 5px;
+        transition: all 200ms linear;
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+        }
+    }
+
+    .go{
+        cursor: pointer;
+        width: fit-content;
+        border: none;
+        &:hover{
+            background: #C4C4C4;
+            color: #1E1E1E;;
+        }
+    }
+
+    input{
+        margin-left:20px;
+    }
+}
 
 .card{
     img{
