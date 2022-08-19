@@ -13,7 +13,6 @@
                     <div class="global_jauge">
                         <div id="personal_jauge" class="personal_jauge"></div>
                     </div>
-
                 </div>
             </div>
             <div class="display_card" >
@@ -126,6 +125,7 @@ export default {
         },
 
         async getCollection(){
+            var _this = this
             var userChaussure = []
             await http.get('collections?filters[proprietaire][$eq]='+localStorage.getItem('username')+'', {
                 headers: {
@@ -143,8 +143,9 @@ export default {
                     var vente = item.attributes.Vente
                     userChaussure.push({Name: name, Image : image, Price: prix, Vente: vente, ID: item.id, Rarete: rarity, Echange: echange}) 
                 })
+                _this.collection_size = res.data.meta.pagination.total
             })
-            this.collection_size = userChaussure.length
+            
             userChaussure.sort(function (a, b) {
                 return b.Price - a.Price;
             });
