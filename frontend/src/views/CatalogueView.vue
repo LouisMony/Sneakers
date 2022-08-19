@@ -19,15 +19,15 @@
         <div class="pagination">
             <span>Page : </span>
             
-            <span class="icon active" v-if="pagevalue>1" v-on:click="getCatalogue(pagevalue -1)"><img src="@/assets/img/ico/ico_previous.png" alt="Previous"></span>
+            <span class="icon active" v-if="pagevalue>1" v-on:click="getCatalogue(pagevalue -1,searchvalue)"><img src="@/assets/img/ico/ico_previous.png" alt="Previous"></span>
             <span class="icon" v-else ><img src="@/assets/img/ico/ico_previous.png" alt="Previous"></span>
 
             <span style="font-weight:bold">{{pagevalue}}</span>
-            <span class="icon active" v-if="pagevalue<77" v-on:click="getCatalogue(pagevalue + 1)"><img src="@/assets/img/ico/ico_next.png" alt="Previous"></span>
+            <span class="icon active" v-if="pagevalue<77" v-on:click="getCatalogue(pagevalue + 1, searchvalue)"><img src="@/assets/img/ico/ico_next.png" alt="Previous"></span>
             <span class="icon" v-else><img src="@/assets/img/ico/ico_next.png" alt="Next"></span>
 
             <input type="number" max="77" min="1" v-model="pagevalue">
-            <button class='go' v-on:click="getCatalogue(pagevalue)">Valider</button>
+            <button class='go' v-on:click="getCatalogue(pagevalue, searchvalue)">Valider</button>
         </div>
     </div>
 </template>
@@ -49,29 +49,12 @@ export default {
     },
     watch: {
         searchvalue: function(val, oldVal) {
-            const cards = document.querySelectorAll('.card')
-            const cardsArr = Array.from(cards);
-            if(val !== ''){
-                val = val.toLowerCase()
-                cardsArr.forEach(item => {
-                    var name =item.querySelector('h2').textContent.toLowerCase();
-                    if(name.includes(val)){
-                        item.style.display = "flex"
-                    }
-                    else{
-                        item.style.display = "none"
-                    }
-                })
-            }else{
-                cardsArr.forEach(item => {
-                    item.style.display = "flex"
-                })
-            }
+            this.getCatalogue(1, val)  
         }
     },
 
     async mounted(){
-        await this.getCatalogue(1)    
+        await this.getCatalogue(1, '')    
     },   
     
     methods:{
@@ -98,19 +81,19 @@ export default {
             })
             .then(function (res) {
                 console.log(res)
-                _this.getCatalogue(_this.pagevalue)
+                _this.getCatalogue(_this.pagevalue, _this.searchvalue)
                 
             })
         },
 
-        async getCatalogue(pagenumber){
+        async getCatalogue(pagenumber, name){
             console.log('tets');
             pagenumber = parseInt(pagenumber)
             this.pagevalue = pagenumber
             this.catalogue = []
             var _this = this
 
-            await http.get('sneakers?pagination[pageSize]=24&&pagination[page]='+pagenumber+'', {
+            await http.get('sneakers?pagination[pageSize]=24&&pagination[page]='+pagenumber+'&filters[Name][$contains]='+name+'', {
                 headers: {
                     Authorization:
                     'Bearer '+localStorage.getItem('token')+'',
